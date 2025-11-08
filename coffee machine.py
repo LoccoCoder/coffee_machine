@@ -1,4 +1,6 @@
+
 import index
+choice=None
 
 Coffee_machine_resources = {
     'coffee': 300,
@@ -34,8 +36,19 @@ def selection():
     user_choice = int(input("Choose the option by the corresponding number: ")) - 1
     return user_choice
 
+def payment():
+    while True:
+        amount = float(input("Enter amount: "))
+        if amount > index.coffee_list[choice]['cost']:
+            change=amount-index.coffee_list[choice]['cost']
+            print(f"Here is your change: {change}")
+            break
+        elif amount < index.coffee_list[choice]['cost']:
+            print("Please pay the amount above")
+
 
 def transaction():
+    global choice
     choice = selection()
     if (Coffee_machine_resources['coffee'] < index.coffee_list[choice]['coffee'] or
         Coffee_machine_resources['water'] < index.coffee_list[choice]['water'] or
@@ -49,6 +62,8 @@ def transaction():
 Please pay the requested amount to the coffee machine.''')
         print(index.coffee_list[choice]['cost'])
         if input("Press 'y' to continue: ") == 'y':
+            print("please the pay the requested amount to the coffee machine.")
+            payment()
             for k in Items:
                 if k == 'cost':
                     pass
